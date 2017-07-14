@@ -1,4 +1,6 @@
 # gpm-http
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/gm-http.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/axetroy/gpm-http.svg?branch=master)](https://travis-ci.org/axetroy/gpm-http)
 [![Dependency](https://david-dm.org/axetroy/gpm-http.svg)](https://david-dm.org/axetroy/gpm-http)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
