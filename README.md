@@ -69,6 +69,52 @@ http.get('https://example.com')
     })
 ```
 
+## API
+
+```typescript
+interface Http$ {
+  create(config: any): Http$;
+  request(
+    method: string,
+    url: string,
+    data: Object | string,
+    header: HttpHeader$,
+    config: RequestConfig$
+  ): Promise<any>;
+  get(
+    url: string,
+    data?: Object | string,
+    header?: HttpHeader$,
+    config?: RequestConfig$
+  ): Promise<any>;
+  post(
+    url: string,
+    data?: Object | string,
+    header?: HttpHeader$,
+    config?: RequestConfig$
+  ): Promise<any>;
+  put(
+    url: string,
+    data?: Object | string,
+    header?: HttpHeader$,
+    config?: RequestConfig$
+  ): Promise<any>;
+  ['delete'](
+    url: string,
+    data?: Object | string,
+    header?: HttpHeader$,
+    config?: RequestConfig$
+  ): Promise<any>;
+  head(
+    url: string,
+    data?: Object | string,
+    header?: HttpHeader$,
+    config?: RequestConfig$
+  ): Promise<any>;
+}
+
+```
+
 ## Contributing
 
 ```bash
