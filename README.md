@@ -13,10 +13,55 @@ Http module for Greasyfork Script
 npm install gm-http --save
 ```
 
-## Usage
+### FeedBack
+
+- https://github.com/axetroy/gm-http/issues
+- https://github.com/axetroy/gm-http/issues
+- https://github.com/axetroy/gm-http/issues
+
+### 如果这能够帮助到你, 不妨点个start, 你的支持就是我更新的动力
+
+### 使用
+
+1. 安装扩展
+
+安装前确保你的浏览器已安装如下扩展
+
+浏览器 | 支持扩展
+------------ | -------------
+Chrome | **Tampermonkey** or **Violent monkey**
+Firefox | **Greasemonkey** or **Tampermonkey**
+Safari | **Tampermonkey**
+Microsoft Edge | **Tampermonkey**
+Opera | **Tampermonkey**
+Maxthon | **Violentmonkey**
+Dolphin | **Tampermonkey**
+UC | **Tampermonkey**
+Qupzilla | 不需要额外软件
+
+2. 安装脚本
+
+创建一个脚本，并且安装
+
+3. 确保拥有http权限
+
+在脚本头部的声明中，确保有http的权限申请
+
+```javascript
+// @grant             GM_xmlhttpRequest
+```
+
+4. 引入本库
 
 ```typescript
+// es6
 import http from 'gm-http';
+
+// commonJs
+const http = require('gm-http');
+
+// or Global
+const http = window.gmHttp;
 
 http.get('https://example.com')
     .then(function() {
