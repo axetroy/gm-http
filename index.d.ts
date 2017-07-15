@@ -86,3 +86,10 @@ interface Http$ {
     config?: RequestConfig$
   ): Promise<any>;
 }
+
+declare module 'gm-http' {
+  const http: Http$;
+  const timeout: number;
+  export { http, timeout };
+  export default http;
+}

@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "Http module for Greasyfork Script",
   "main": "./dist/index.js",
-  "typings": "index.d.ts",
+  "typings": "./index.d.ts",
   "scripts": {
     "test": "ava",
     "build": "webpack --display-error-details --progress --colors",
