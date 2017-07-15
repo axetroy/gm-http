@@ -44,7 +44,6 @@ class Http implements Http$ {
       ) {
         isFunction(onreadystatechange) &&
           onreadystatechange.call(this, response);
-        console.log(response.readyState);
         if (response.readyState !== 4) return;
         response.status >= 200 && response.status < 400 && response.finalUrl
           ? resolve(response)
@@ -65,8 +64,6 @@ class Http implements Http$ {
         isFunction(ontimeout) && ontimeout.call(this, response);
         reject(response);
       };
-      console.log(GM_xmlhttpRequestConfig);
-
       GM_xmlhttpRequest(
         <GM_xmlhttpRequestConfig$>{ ...GM_xmlhttpRequestConfig }
       );
