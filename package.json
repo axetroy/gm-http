@@ -1,8 +1,8 @@
 {
-  "name": "gpm-http",
+  "name": "gm-http",
   "version": "0.1.0",
-  "description": "Http module for WeChat APP",
-  "main": "./dist/gpm-http.js",
+  "description": "Http module for Greasyfork Script",
+  "main": "./dist/gm-http.js",
   "typings": "index.d.ts",
   "scripts": {
     "test": "ava",
@@ -18,14 +18,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/axetroy/gpm-http.git"
+    "url": "git+https://github.com/axetroy/gm-http.git"
   },
   "author": "Axetroy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/axetroy/gpm-http/issues"
+    "url": "https://github.com/axetroy/gm-http/issues"
   },
-  "homepage": "https://github.com/axetroy/gpm-http#readme",
+  "homepage": "https://github.com/axetroy/gm-http#readme",
   "devDependencies": {
     "all-contributors-cli": "^4.0.1",
     "ava": "^0.21.0",

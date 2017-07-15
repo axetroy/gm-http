@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
-    library: 'lib',
+    library: 'gmHttp',
     libraryTarget: 'umd'
   },
   resolve: {
