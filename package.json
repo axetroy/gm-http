@@ -1,6 +1,6 @@
 {
   "name": "gm-http",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Http module for Greasyfork Script",
   "main": "./dist/index.js",
   "typings": "./index.d.ts",
