@@ -35,6 +35,10 @@ interface RequestConfig$ {
   ontimeout?(response: Response$): void;
 }
 
+interface HttpConstructorConfig$ extends RequestConfig${
+  debug?:boolean
+}
+
 interface CommonRequestConfig$ {
   method: string;
   url: string;
@@ -46,8 +50,13 @@ interface GM_xmlhttpRequestConfig$
   extends CommonRequestConfig$,
     RequestConfig$ {}
 
+interface  HttpConstructor${
+  new():Http$
+}
+
 interface Http$ {
-  create(config: any): Http$;
+  setConfig(config:HttpConstructorConfig$)
+  create(config: HttpConstructorConfig$): Http$;
   request(
     method: string,
     url: string,
@@ -89,7 +98,8 @@ interface Http$ {
 
 declare module 'gm-http' {
   const http: Http$;
+  const Http:HttpConstructor$;
   const timeout: number;
-  export { http, timeout };
+  export { http, timeout, Http };
   export default http;
 }

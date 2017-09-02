@@ -8,9 +8,13 @@ function isFunction(func): boolean {
 }
 
 class Http implements Http$ {
-  constructor(private config = {}) {}
+  constructor(private config: HttpConstructorConfig$ = {}) {}
 
-  create(config): Http {
+  setConfig(config: HttpConstructorConfig$ = {}) {
+    this.config = { ...this.config, ...config };
+  }
+
+  create(config: RequestConfig$): Http {
     return new Http(config);
   }
 
@@ -30,7 +34,8 @@ class Http implements Http$ {
       };
       const GM_xmlhttpRequestConfig: GM_xmlhttpRequestConfig$ = <GM_xmlhttpRequestConfig$>{
         ...commonRequestConfig,
-        ...config
+        ...config,
+        ...this.config
       };
       let {
         onreadystatechange,
@@ -42,28 +47,52 @@ class Http implements Http$ {
       GM_xmlhttpRequestConfig.onreadystatechange = function(
         response: Response$
       ) {
-        isFunction(onreadystatechange) &&
-          onreadystatechange.call(this, response);
+        try {
+          isFunction(onreadystatechange) &&
+            onreadystatechange.call(this, response);
+        } catch (err) {
+          reject(err);
+        }
         if (response.readyState !== 4) return;
-        response.status >= 200 && response.status < 400 && response.finalUrl
+        response.status >= 200 && response.status < 400
           ? resolve(response)
           : reject(response);
       };
 
       GM_xmlhttpRequestConfig.onerror = function(response: Response$) {
-        isFunction(onerror) && onerror.call(this, response);
+        try {
+          isFunction(onerror) && onerror.call(this, response);
+          reject(response);
+        } catch (err) {
+          reject(err);
+        }
       };
 
       GM_xmlhttpRequestConfig.onabort = function(response: Response$) {
-        isFunction(onabort) && onabort.call(this, response);
-        reject(response);
-        resolve();
+        try {
+          isFunction(onabort) && onabort.call(this, response);
+          reject(response);
+        } catch (err) {
+          reject(err);
+        }
       };
 
       GM_xmlhttpRequestConfig.ontimeout = function(response: Response$) {
-        isFunction(ontimeout) && ontimeout.call(this, response);
-        reject(response);
+        try {
+          isFunction(ontimeout) && ontimeout.call(this, response);
+          reject(response);
+        } catch (err) {
+          reject(err);
+        }
       };
+
+      if (this.config.debug) {
+        console.log(
+          `%c[${commonRequestConfig.method.toUpperCase()}]%c: ${commonRequestConfig.url}`,
+          'color: green',
+          'color: #000;text-style: under-line'
+        );
+      }
 
       GM_xmlhttpRequest(<GM_xmlhttpRequestConfig$>{
         ...GM_xmlhttpRequestConfig
@@ -120,5 +149,5 @@ class Http implements Http$ {
 const timeout = 5000;
 let http = new Http({ timeout });
 
-export { http, timeout };
+export { http, Http, timeout };
 export default http;
