@@ -8,7 +8,7 @@ function isFunction(func): boolean {
 }
 
 class Http implements Http$ {
-  constructor(private config) {}
+  constructor(private config = {}) {}
 
   create(config): Http {
     return new Http(config);
@@ -64,9 +64,10 @@ class Http implements Http$ {
         isFunction(ontimeout) && ontimeout.call(this, response);
         reject(response);
       };
-      GM_xmlhttpRequest(
-        <GM_xmlhttpRequestConfig$>{ ...GM_xmlhttpRequestConfig }
-      );
+
+      GM_xmlhttpRequest(<GM_xmlhttpRequestConfig$>{
+        ...GM_xmlhttpRequestConfig
+      });
     });
   }
 
