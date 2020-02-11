@@ -43,6 +43,13 @@ interface RequestConfig$ {
   ontimeout?(response: Response$): void;
 }
 
+interface HttpRequestConfig$ extends RequestConfig$ {
+  url: string;
+  method: string;
+  body?: any;
+  headers?: HttpHeader$;
+}
+
 interface HttpConstructorConfig$ extends RequestConfig$ {
   debug?: boolean;
 }
@@ -65,13 +72,7 @@ interface HttpConstructor$ {
 interface Http$ {
   setConfig(config: HttpConstructorConfig$);
   create(config: HttpConstructorConfig$): Http$;
-  request(
-    method: string,
-    url: string,
-    data: Object | string,
-    header: HttpHeader$,
-    config: RequestConfig$
-  ): Promise<Response$>;
+  request(config: HttpRequestConfig$): Promise<Response$>;
   get(
     url: string,
     data?: Object | string,

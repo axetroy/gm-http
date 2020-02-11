@@ -4,7 +4,7 @@
 /// <reference path="./index.d.ts" />
 
 function isFunction(func): boolean {
-  return typeof func === 'function';
+  return typeof func === "function";
 }
 
 class Http implements Http$ {
@@ -18,21 +18,17 @@ class Http implements Http$ {
     return new Http(config);
   }
 
-  request(
-    method: string,
-    url: string,
-    data: Object | string = '',
-    header: HttpHeader$ = {},
-    config: RequestConfig$ = {}
-  ): Promise<Response$> {
+  request(config: HttpRequestConfig$): Promise<Response$> {
     return new Promise((resolve, reject) => {
       const commonRequestConfig: CommonRequestConfig$ = {
-        method,
-        url,
-        data,
-        header
+        method: config.method,
+        url: config.url,
+        data: config.body,
+        header: config.headers
       };
-      const GM_xmlhttpRequestConfig: GM_xmlhttpRequestConfig$ = <GM_xmlhttpRequestConfig$>{
+      const GM_xmlhttpRequestConfig: GM_xmlhttpRequestConfig$ = <
+        GM_xmlhttpRequestConfig$
+      >{
         ...commonRequestConfig,
         ...config,
         ...this.config
@@ -88,9 +84,11 @@ class Http implements Http$ {
 
       if (this.config.debug) {
         console.log(
-          `%c[${commonRequestConfig.method.toUpperCase()}]%c: ${commonRequestConfig.url}`,
-          'color: green',
-          'color: #000;text-style: under-line'
+          `%c[${commonRequestConfig.method.toUpperCase()}]%c: ${
+            commonRequestConfig.url
+          }`,
+          "color: green",
+          "color: #000;text-style: under-line"
         );
       }
 
@@ -103,46 +101,76 @@ class Http implements Http$ {
   get(
     url: string,
     data?: Object | string,
-    header?: HttpHeader$,
-    config?: RequestConfig$
+    headers: HttpHeader$ = {},
+    config: RequestConfig$ = {}
   ): Promise<Response$> {
-    return this.request('GET', url, data, header, config);
+    return this.request({
+      url,
+      method: "GET",
+      body: data,
+      headers,
+      ...config
+    });
   }
 
   post(
     url: string,
     data?: Object | string,
-    header?: HttpHeader$,
-    config?: RequestConfig$
+    headers: HttpHeader$ = {},
+    config: RequestConfig$ = {}
   ): Promise<Response$> {
-    return this.request('POST', url, data, header, config);
+    return this.request({
+      url,
+      method: "POST",
+      body: data,
+      headers,
+      ...config
+    });
   }
 
   put(
     url: string,
     data?: Object | string,
-    header?: HttpHeader$,
-    config?: RequestConfig$
+    headers: HttpHeader$ = {},
+    config: RequestConfig$ = {}
   ): Promise<Response$> {
-    return this.request('PUT', url, data, header, config);
+    return this.request({
+      url,
+      method: "POST",
+      body: data,
+      headers,
+      ...config
+    });
   }
 
-  ['delete'](
+  ["delete"](
     url: string,
     data?: Object | string,
-    header?: HttpHeader$,
-    config?: RequestConfig$
+    headers: HttpHeader$ = {},
+    config: RequestConfig$ = {}
   ): Promise<Response$> {
-    return this.request('DELETE', url, data, header, config);
+    return this.request({
+      url,
+      method: "DELETE",
+      body: data,
+      headers,
+      ...config
+    });
   }
 
   head(
     url: string,
     data?: Object | string,
-    header?: HttpHeader$,
-    config?: RequestConfig$
+    headers: HttpHeader$ = {},
+    config: RequestConfig$ = {}
   ): Promise<Response$> {
-    return this.request('HEAD', url, data, header, config);
+    return this.request({
+      url,
+      method: "HEAD",
+      body: data,
+      headers,
+      ...config
+    });
   }
 }
 
