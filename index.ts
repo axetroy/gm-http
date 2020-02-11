@@ -33,7 +33,7 @@ class Http implements Http$ {
         ...config,
         ...this.config
       };
-      let {
+      const {
         onreadystatechange,
         onerror,
         onabort,
