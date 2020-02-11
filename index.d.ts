@@ -1,9 +1,13 @@
 /**
  * Created by axetroy on 2017/7/15.
  */
-declare function GM_xmlhttpRequest(agm: GM_xmlhttpRequestConfig$): void
+declare function GM_xmlhttpRequest(agm: GM_xmlhttpRequestConfig$): void;
 
 interface HttpHeader$ {
+  [s: string]: string;
+}
+
+interface Cookies$ {
   [s: string]: string;
 }
 
@@ -22,7 +26,11 @@ interface RequestConfig$ {
   binary?: boolean;
   context?: any;
   overrideMimeType?: string;
-  user?: string;
+  cookie?: Cookies$;
+  responseType?: "arraybuffer" | "blob" | "json";
+  anonymous?: boolean;
+  fetch?: boolean;
+  username?: string;
   password?: string;
   synchronous?: boolean;
   timeout?: number;
@@ -35,8 +43,8 @@ interface RequestConfig$ {
   ontimeout?(response: Response$): void;
 }
 
-interface HttpConstructorConfig$ extends RequestConfig${
-  debug?:boolean
+interface HttpConstructorConfig$ extends RequestConfig$ {
+  debug?: boolean;
 }
 
 interface CommonRequestConfig$ {
@@ -50,12 +58,12 @@ interface GM_xmlhttpRequestConfig$
   extends CommonRequestConfig$,
     RequestConfig$ {}
 
-interface  HttpConstructor${
-  new():Http$
+interface HttpConstructor$ {
+  new (): Http$;
 }
 
 interface Http$ {
-  setConfig(config:HttpConstructorConfig$)
+  setConfig(config: HttpConstructorConfig$);
   create(config: HttpConstructorConfig$): Http$;
   request(
     method: string,
@@ -63,42 +71,42 @@ interface Http$ {
     data: Object | string,
     header: HttpHeader$,
     config: RequestConfig$
-  ): Promise<any>;
+  ): Promise<Response$>;
   get(
     url: string,
     data?: Object | string,
     header?: HttpHeader$,
     config?: RequestConfig$
-  ): Promise<any>;
+  ): Promise<Response$>;
   post(
     url: string,
     data?: Object | string,
     header?: HttpHeader$,
     config?: RequestConfig$
-  ): Promise<any>;
+  ): Promise<Response$>;
   put(
     url: string,
     data?: Object | string,
     header?: HttpHeader$,
     config?: RequestConfig$
-  ): Promise<any>;
-  ['delete'](
+  ): Promise<Response$>;
+  ["delete"](
     url: string,
     data?: Object | string,
     header?: HttpHeader$,
     config?: RequestConfig$
-  ): Promise<any>;
+  ): Promise<Response$>;
   head(
     url: string,
     data?: Object | string,
     header?: HttpHeader$,
     config?: RequestConfig$
-  ): Promise<any>;
+  ): Promise<Response$>;
 }
 
-declare module 'gm-http' {
+declare module "gm-http" {
   const http: Http$;
-  const Http:HttpConstructor$;
+  const Http: HttpConstructor$;
   const timeout: number;
   export { http, timeout, Http };
   export default http;
