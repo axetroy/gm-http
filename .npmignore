@@ -69,3 +69,9 @@ test
 .travis.yml
 screenshot.gif
 example
+
+.gpmrc
+webpack.config.js
+tsconfig.json
+contributing.md
+index.ts
